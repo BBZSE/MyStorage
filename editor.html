@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>글 작성</title>
+</head>
+<body>
+  <h1>✍️ 새 글 작성</h1>
+  <input type="text" id="title" placeholder="제목"><br>
+  <input type="text" id="category" placeholder="카테고리"><br>
+  <textarea id="content" rows="10" cols="50" placeholder="내용 입력"></textarea><br>
+  <button onclick="downloadPost()">글 저장</button>
+
+  <script>
+    function downloadPost() {
+      const title = document.getElementById('title').value;
+      const category = document.getElementById('category').value;
+      const content = document.getElementById('content').value;
+      const json = {
+        title, category, content
+      };
+      const blob = new Blob([JSON.stringify(json, null, 2)], {type: "application/json"});
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `${title}.json`;
+      link.click();
+    }
+  </script>
+</body>
+</html>
